@@ -1,14 +1,50 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 const COLS = 30;
 const ROWS = 18;
 const COUNT = COLS * ROWS;
 const STEP = 0.62;
-const PASS = new THREE.Color('#c8f03a');
-const FAIL = new THREE.Color('#ff4d2e');
-const IDLE = new THREE.Color('#2b2d24');
+
+/** Fallback colours, used only if the CSS variables cannot be resolved. */
+const FALLBACK = { pass: '#c8f03a', fail: '#ff4d2e', idle: '#2b2d24' };
+
+type SceneColors = { pass: THREE.Color; fail: THREE.Color; idle: THREE.Color };
+
+function readSceneColors(): SceneColors {
+  if (typeof window === 'undefined') {
+    return {
+      pass: new THREE.Color(FALLBACK.pass),
+      fail: new THREE.Color(FALLBACK.fail),
+      idle: new THREE.Color(FALLBACK.idle),
+    };
+  }
+
+  const styles = getComputedStyle(document.documentElement);
+  const read = (name: string, fallback: string) =>
+    new THREE.Color(styles.getPropertyValue(name).trim() || fallback);
+
+  return {
+    pass: read('--accent', FALLBACK.pass),
+    fail: read('--danger', FALLBACK.fail),
+    idle: read('--idle', FALLBACK.idle),
+  };
+}
+
+/** Keeps the 3D scene in sync with the active CSS theme. */
+function useSceneColors(): SceneColors {
+  const [colors, setColors] = useState<SceneColors>(readSceneColors);
+
+  useEffect(() => {
+    const update = () => setColors(readSceneColors());
+    const observer = new MutationObserver(update);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
+
+  return colors;
+}
 
 function Field() {
   const mesh = useRef<THREE.InstancedMesh>(null!);
@@ -17,6 +53,7 @@ function Field() {
   const col = useRef(new THREE.Color());
   const heal = useRef(new Float32Array(COUNT));
   const { camera } = useThree();
+  const { pass, fail, idle } = useSceneColors();
 
   useFrame(({ clock }, dt) => {
     const t = clock.elapsedTime;
@@ -40,7 +77,7 @@ function Field() {
       healArr[i] = Math.max(0, healArr[i] - dt);
       const f = Math.min(1, healArr[i] * 2);
 
-      tint.copy(IDLE).lerp(PASS, reveal).lerp(FAIL, f);
+      tint.copy(idle).lerp(pass, reveal).lerp(fail, f);
       mesh.current.setColorAt(i, tint);
 
       object.position.set(x, 0, z);
