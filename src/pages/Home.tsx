@@ -1,65 +1,145 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import profilePhoto from '../../img/profile.jpg';
-import studioPhoto from '../../img/aa.jpg';
+import { HeroPortrait } from '../components/HeroPortrait';
+import { ProjectCover } from '../components/ProjectCover';
+import { emphasis } from '../lib/emphasis';
 import { profile, runHighlights } from '../data/profile';
 import { selectedProjects } from '../data/projects';
+import { CoverageField, StaticField } from '../three/CoverageField';
+import { useCan3D } from '../three/useCan3D';
 
-const pageTransition = { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const };
+const toolItems = ['Selenium', 'Python', 'Postman', 'JMeter', 'Jira', 'Trello', 'Git', 'MySQL', 'PostgreSQL'];
+const focusAreas = ['Automation', 'Regression', 'API testing', 'Manual QA'];
 
-function Home() {
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+function Home({ ready = true }: { ready?: boolean }) {
+  const can3D = useCan3D();
+  const reduce = useReducedMotion();
+
+  const group: Variants = reduce
+    ? { hidden: {}, show: { transition: { staggerChildren: 0.04, delayChildren: 0.05 } } }
+    : { hidden: {}, show: { transition: { staggerChildren: 0.075, delayChildren: 0.12 } } };
+
+  const rise: Variants = reduce
+    ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.3 } } }
+    : { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } } };
+
   return (
-    <motion.main initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={pageTransition}>
+    <main id="main" className="home-page">
       <section className="hero-shell">
+        <div className="hero-stage" aria-hidden="true">
+          {ready && can3D ? <CoverageField active /> : <StaticField className="static-field" />}
+        </div>
+        <div className="hero-veil" aria-hidden="true" />
+
         <div className="container hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow">[ Quality assurance / web performance ]</p>
-            <h1>
-              Hi, I&apos;m <span>Rupesh Mahat</span>
-            </h1>
-            <p className="lede">
-              I build and validate reliable digital products for businesses that need smooth workflows, clean releases, and strong user trust.
-            </p>
-            <div className="hero-actions">
-              <a className="button-link" href="#work">View My Work</a>
-              <a className="button-link button-link--ghost" href="/Rupesh_Mahat_CV.pdf" download>Download CV</a>
-            </div>
-            <ul className="meta-list">
-              <li>Location: {profile.location}</li>
-              <li>Stack: Selenium + Python + JMeter + Jira</li>
-            </ul>
-            <div className="hero-badges" aria-label="Focus areas">
-              <span>Automation</span>
-              <span>Regression</span>
-              <span>API</span>
-              <span>Manual QA</span>
-            </div>
-            <div className="hero-stats" aria-label="Quality highlights">
+          <motion.div className="hero-copy" variants={group} initial="hidden" animate={ready ? 'show' : 'hidden'}>
+            <motion.p className="eyebrow" variants={rise}>
+              <span className="eyebrow__dot" aria-hidden="true" />
+              § 01 / QA &amp; AUTOMATION
+            </motion.p>
+
+            <motion.h1 className="hero-title" variants={rise}>
+              <span className="hero-title__line">Rupesh</span>
+              <span className="hero-title__line">
+                <em className="hero-title__accent">
+                  Mahat
+                  <motion.i
+                    className="hero-title__rule"
+                    aria-hidden="true"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: ready ? 1 : 0 }}
+                    transition={{ duration: 0.9, ease: EASE, delay: 0.5 }}
+                  />
+                </em>
+              </span>
+            </motion.h1>
+
+            <motion.p className="hero-subtitle" variants={rise}>
+              Quality Assurance &amp; Automation Engineer
+            </motion.p>
+
+            <motion.p className="lede" variants={rise}>
+              I find the bugs in ERP, POS and e-commerce systems before customers do.
+            </motion.p>
+
+            <motion.div className="hero-actions" variants={rise}>
+              <a className="button-link button-link--primary" href="#work">
+                View test reports
+                <span className="button-link__arrow" aria-hidden="true">→</span>
+              </a>
+              <a className="button-link button-link--ghost" href="/Rupesh_Mahat_CV.pdf" download>
+                Download CV
+              </a>
+            </motion.div>
+
+            <motion.ul className="meta-list" variants={rise}>
+              <li>{profile.location}</li>
+              <li>Selenium · Python · JMeter · Jira</li>
+            </motion.ul>
+
+            <motion.div className="tool-marquee" variants={rise}>
+              <ul className="tool-track" aria-label="Core tools">
+                {toolItems.map((item) => (
+                  <li key={item} className="tool-chip">
+                    <span className="tool-icon" aria-hidden="true">◆</span>
+                    {item}
+                  </li>
+                ))}
+                {toolItems.map((item) => (
+                  <li key={`${item}-dup`} className="tool-chip" aria-hidden="true">
+                    <span className="tool-icon" aria-hidden="true">◆</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            <motion.ul className="hero-badges" variants={rise} aria-label="Focus areas">
+              {focusAreas.map((area) => (
+                <li key={area} className="hero-badge">
+                  <span className="hero-badge__dot" aria-hidden="true" />
+                  {area}
+                </li>
+              ))}
+            </motion.ul>
+
+            <motion.dl className="hero-stats" variants={rise} aria-label="Quality highlights">
               {runHighlights.map((item) => (
                 <div key={item.label} className="hero-stat">
-                  <strong>{item.value}</strong>
-                  <span>{item.label}</span>
+                  <dt className="hero-stat__label">{item.label}</dt>
+                  <dd className="hero-stat__value">{item.value}</dd>
                 </div>
               ))}
-            </div>
-          </div>
+            </motion.dl>
+          </motion.div>
 
-          <div className="hero-visual" aria-label="Rupesh Mahat profile portrait">
-            <div className="portrait-shell">
-              <img src={profilePhoto} alt="Rupesh Mahat portrait" />
+          <motion.div className="hero-visual" variants={group} initial="hidden" animate={ready ? 'show' : 'hidden'}>
+            <HeroPortrait />
+
+            <div className="field-legend">
+              <p className="field-legend__title">Coverage field</p>
+              <ul className="field-legend__list">
+                <li><span className="swatch swatch--pass" aria-hidden="true" />Pass</li>
+                <li><span className="swatch swatch--defect" aria-hidden="true" />Defect</li>
+                <li><span className="swatch swatch--idle" aria-hidden="true" />Idle</li>
+              </ul>
+              <p className="field-legend__hint">Sweep the pointer across the field to flag a regression.</p>
             </div>
-            <div className="mini-panel">
-              <div>
-                <span className="tiny-label">[LIVE]</span>
-                <strong>Regression checks</strong>
-              </div>
-              <em>47/47</em>
-            </div>
-            <div className="studio-flag">
-              <img src={studioPhoto} alt="QA studio environment" />
-            </div>
-          </div>
+          </motion.div>
         </div>
+
+        <motion.a
+          className="scroll-cue"
+          href="#about"
+          initial={false}
+          animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.6, ease: EASE, delay: 0.9 }}
+        >
+          <span className="scroll-cue__rail" aria-hidden="true" />
+          <span className="scroll-cue__label">Scroll</span>
+        </motion.a>
       </section>
 
       <section className="container info-section" id="about">
@@ -138,15 +218,22 @@ function Home() {
           {profile.experience.map((job) => (
             <article key={`${job.role}-${job.company}`} className="timeline-item">
               <div className="timeline-header">
-                <span className="timeline-tag">[{job.period}]</span>
+                <span className="timeline-tag">{job.period}</span>
                 <h3>{job.role}</h3>
               </div>
-              <p className="company-line">{job.company} — {job.location}</p>
+              <p className="company-line"><strong>{job.company}</strong> · {job.location}</p>
               <ul>
                 {job.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
+                  <li key={bullet}>{emphasis(bullet)}</li>
                 ))}
               </ul>
+              {job.stack && (
+                <div className="tag-row">
+                  {job.stack.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+              )}
             </article>
           ))}
         </div>
@@ -175,23 +262,15 @@ function Home() {
         <div className="section-heading split-heading">
           <div>
             <p className="eyebrow">Featured projects</p>
-            <h2>Release candidates.</h2>
+            <h2>Selected test reports.</h2>
           </div>
           <Link to="/work" className="text-link">Swipe to explore →</Link>
         </div>
 
         <div className="project-grid">
-          {selectedProjects.map((project, index) => (
-            <Link
-              to={`/work/${project.slug}`}
-              key={project.slug}
-              className="project-card"
-              style={{
-                backgroundImage: `linear-gradient(180deg, rgba(11,17,23,0.25), rgba(11,17,23,0.9)), url(${index % 2 === 0 ? profilePhoto : studioPhoto})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
+          {selectedProjects.map((project) => (
+            <Link to={`/work/${project.slug}`} key={project.slug} className="project-card">
+              <ProjectCover slug={project.slug} />
               <div className="project-overlay">
                 <div className="card-meta">
                   <span>[{project.category}]</span>
@@ -235,7 +314,7 @@ function Home() {
           </div>
         </div>
       </section>
-    </motion.main>
+    </main>
   );
 }
 

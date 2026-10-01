@@ -1,36 +1,62 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
-const navItems = [
+const routes = [
   { to: '/', label: 'Home' },
   { to: '/work', label: 'Projects' },
-  { to: '#contact', label: 'Contact' },
 ];
 
-export function Header() {
+type HeaderProps = {
+  theme: 'light' | 'dark';
+  onToggleTheme: () => void;
+};
+
+export function Header({ theme, onToggleTheme }: HeaderProps) {
+  const { pathname } = useLocation();
+
+  const goContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <header className="site-header">
       <div className="container header-inner">
         <Link to="/" className="brand" aria-label="Rupesh Mahat home">
-          <span className="brand-mark">P</span>
-          <span className="brand-name">PORTFOL.IO</span>
+          <span className="brand-mark">RM</span>
+          <span className="brand-name">RUPESH.QA</span>
         </Link>
 
-        <nav className="main-nav" aria-label="Main navigation">
-          {navItems.map((item) => (
+        <nav className="main-nav" aria-label="Main navigation" key={pathname}>
+          {routes.map((r) => (
             <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`.trim()}
-              end={item.to === '/'}
+              key={r.to}
+              to={r.to}
+              end={r.to === '/'}
+              className={({ isActive }) => `nav-link${isActive ? ' is-active' : ''}`}
+              onClick={(e) => (e.currentTarget as HTMLElement).blur()}
             >
-              {item.label}
+              {r.label}
             </NavLink>
           ))}
+          <button type="button" className="nav-link nav-link--button" onClick={goContact}>
+            Contact
+          </button>
         </nav>
 
-        <a className="button-link inline-link" href="/Rupesh_Mahat_CV.pdf" download>
-          Open for Hire
-        </a>
+        <div className="header-actions">
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={onToggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-pressed={theme === 'light'}
+          >
+            <span className="theme-toggle__icon" aria-hidden="true">{theme === 'dark' ? '☀' : '☾'}</span>
+            <span className="theme-toggle__label">{theme === 'dark' ? 'Light' : 'Dark'}</span>
+          </button>
+          <a className="button-link inline-link" href="/Rupesh_Mahat_CV.pdf" download>
+            Download CV
+          </a>
+        </div>
       </div>
     </header>
   );

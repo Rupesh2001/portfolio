@@ -9,6 +9,7 @@ export type ExperienceItem = {
   location: string;
   period: string;
   bullets: string[];
+  stack?: string[];
 };
 
 export type ProfileData = {
@@ -44,34 +45,38 @@ export const profile: ProfileData = {
       role: 'QA & Automation Engineer',
       company: 'Danfe Solution Pvt. Ltd.',
       location: 'Sinamangal',
-      period: 'Apr 2025 to Present',
+      period: 'Apr 2025 – Present',
       bullets: [
-        'Manual + automation testing: Selenium with Python, Postman API testing, JIRA defect management, JMeter performance testing',
-        'Wrote test cases, scenarios, and reporting workflows for cart, billing, inventory, order management, restaurant POS',
-        'Analyzed requirements, found edge cases, covered functional and non-functional areas',
-        'Documented defects clearly and worked with teams to improve quality and UX',
+        'Own **manual and automation testing** across **cart, billing, inventory, order management** and **restaurant POS** modules.',
+        'Automate repeatable flows with **Selenium + Python**, verify endpoints in **Postman**, and run **JMeter** performance checks.',
+        'Write **test cases, scenarios and reporting workflows**; analyse requirements to surface **edge cases** and cover **functional and non-functional** areas.',
+        'Log and track defects in **Jira** with clear reproduction steps, working with developers to raise **quality and user experience**.',
       ],
+      stack: ['Selenium', 'Python', 'Postman', 'JMeter', 'Jira'],
     },
     {
       role: 'Support Engineer',
       company: 'Danfe Solution Pvt. Ltd.',
       location: 'Sinamangal',
-      period: 'TODO',
+      period: 'Present',
       bullets: [
-        'Client technical support: printer connectivity, drivers, configuration; installs, updates, troubleshooting',
-        'Documented issues and solutions; escalated complex cases to internal teams',
+        'Resolve **client-side technical issues**: **printer connectivity, driver setup and configuration**, plus software **installation, updates and troubleshooting**.',
+        'Keep client communication clear and timely; **escalate complex cases** to internal teams for quick resolution.',
+        '**Document issues, fixes and client feedback** so recurring problems drop over time.',
       ],
+      stack: ['Client support', 'Troubleshooting', 'Escalation'],
     },
     {
-      role: 'QA Intern',
+      role: 'Quality Assurance Intern',
       company: 'Search Eyes Business Solution',
       location: 'Bhaktapur',
-      period: 'Dec 2024 to Apr 2025',
+      period: 'Dec 2024 – Apr 2025',
       bullets: [
-        'Validated ERP and transactional workflows (accounting, HR, inventory)',
-        'Responsive UI/UX testing across devices; payment (cash/card), order processing, data integrity checks',
-        'Jira, Excel, API tools; Agile/Scrum sprints with developers',
+        'Validated **ERP and transactional workflows**: **accounting, HR, inventory**.',
+        'Tested **UI/UX across devices** (Responsive Test Chrome extension) and verified **payments (cash/card), order processing and data integrity**.',
+        'Tracked bugs with **Jira and Excel**, used API tools for data checks, and worked in **Agile/Scrum sprints** with developers.',
       ],
+      stack: ['ERP', 'Jira', 'Excel', 'Agile/Scrum'],
     },
   ],
   skills: [
@@ -103,7 +108,7 @@ export const profile: ProfileData = {
   ],
   training: [
     'Quality Assurance, Mindrisers Institute of Technology: manual + Selenium/Python automation, mobile app testing (Android Studio), Jira and Trello',
-    '"Automation Engineer ISTQB" course, Mindluster: Selenium WebDriver with Python, PyTest/Unittest, waits, assertions, test data, reusable functions, Page Object Model. Labelled as a course, not a certification.',
+    'Automation Engineer ISTQB, Mindluster: Selenium WebDriver with Python, PyTest/Unittest, waits, assertions, test data, reusable functions, Page Object Model.',
   ],
   other: 'College project, Money Transfer Service app built in Java.',
 };

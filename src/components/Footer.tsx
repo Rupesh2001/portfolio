@@ -6,11 +6,11 @@ export function Footer() {
       <div className="container footer-top">
         <div className="brand-block">
           <div className="brand brand--footer">
-            <span className="brand-mark">P</span>
-            <span className="brand-name">PORTFOL.IO</span>
+            <span className="brand-mark">RM</span>
+            <span className="brand-name">RUPESH.QA</span>
           </div>
           <p>
-            A showcase of modern web engineering, focused on high-performance architecture and premium user experience.
+            Quality-first delivery for ERP, POS, and commerce systems where reliability matters as much as speed.
           </p>
         </div>
 
@@ -18,7 +18,7 @@ export function Footer() {
           <p className="eyebrow">Sitemap</p>
           <ul className="footer-list">
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/work">Work Gallery</Link></li>
+            <li><Link to="/work">Test reports</Link></li>
             <li><a href="/Rupesh_Mahat_CV.pdf" download>Download CV</a></li>
           </ul>
         </div>
@@ -34,7 +34,7 @@ export function Footer() {
       </div>
 
       <div className="container footer-bottom">
-        <span>© 2026 Crafted with precision.</span>
+        <span>© 2026 Quality checks, not guesses.</span>
       </div>
     </footer>
   );

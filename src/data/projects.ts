@@ -23,11 +23,13 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'hs-admin',
-    name: 'HS Admin System',
+    name: 'Hotel Simplify Admin System',
     category: 'Web apps',
     liveLink: 'https://hs.danfesolution.com/Admin',
-    description: 'Description TODO (admin panel; ask owner what "HS" stands for, leave TODO)',
-    summary: 'Admin panel operations and control flows for a business system.',
+    description:
+      'A business admin platform for managing users, dashboards, operational reports, and audit visibility across a hotel or service business workflow. The testing focus was on role-based access, data accuracy, dashboard consistency, and reliable reporting so administrators could act on trustworthy operational information.',
+    summary:
+      'Admin-focused workflow system covering user access, dashboards, reporting, and audit review for operational control and business oversight.',
     tags: ['Admin', 'Roles', 'Reports'],
     modules: ['User access', 'Dashboards', 'Reporting', 'Audit trail'],
     tools: ['Manual', 'Jira', 'Excel'],
@@ -48,8 +50,10 @@ export const projects: Project[] = [
     name: 'Restaurant POS',
     category: 'Restaurant/POS',
     liveLink: 'http://restro.danfesolution.com/sf/sfLogin.aspx?ReturnUrl=http://restro.danfesolution.com/',
-    description: 'Restaurant POS, table/online/take-away orders, billing (http only, add a small "insecure link" note)',
-    summary: 'Multi-channel order handling with billing and kitchen coordination.',
+    description:
+      'A restaurant point-of-sale platform covering table service, takeaway orders, online order handling, and invoicing across live transactions. The QA work focused on order flow accuracy, pricing rules, invoice generation, and recovery when POS data changed during active service.',
+    summary:
+      'Multi-channel restaurant ordering and billing system covering table, takeaway, online orders, and invoice integrity under live service conditions.',
     tags: ['POS', 'Orders', 'Billing'],
     modules: ['Table orders', 'Takeaway', 'Online orders', 'Invoice flow'],
     tools: ['Manual', 'Selenium', 'Jira'],
@@ -70,8 +74,10 @@ export const projects: Project[] = [
     name: 'Cloud Restro Order',
     category: 'Restaurant/POS',
     liveLink: 'https://cloud.restroorder.com',
-    description: 'Table orders, online orders, take-away, order updates, accurate billing and order history',
-    summary: 'Order lifecycle tracking for restaurant operations across multiple channels.',
+    description:
+      'A cloud-based ordering platform designed for restaurant operations across order creation, payment processing, updates, and order history tracking. I validated the end-to-end user journey from product selection to payment completion and historical consistency so business teams could trust the live order lifecycle.',
+    summary:
+      'Cloud ordering workflow for restaurant teams covering order placement, billing accuracy, state updates, and operational history tracking.',
     tags: ['Cloud', 'Orders', 'Payments'],
     modules: ['Customer flow', 'Billing', 'Order history', 'Updates'],
     tools: ['Manual', 'API', 'Jira'],
@@ -92,8 +98,10 @@ export const projects: Project[] = [
     name: 'NSO App',
     category: 'Web apps',
     liveLink: 'https://nso-app.danfesolution.com',
-    description: 'Description TODO',
-    summary: 'Operational product handling and user workflows for the NSO application.',
+    description:
+      'An operational business application built around login control, form entry, record management, and reporting workflows. Coverage focused on access validation, data entry checks, synchronization behavior, and reporting reliability across daily operational tasks.',
+    summary:
+      'Operational business app validating access control, form handling, records, and reporting workflows across day-to-day work.',
     tags: ['App', 'Operations', 'Flows'],
     modules: ['Login', 'Forms', 'Records', 'Reports'],
     tools: ['Manual', 'Excel', 'Jira'],
@@ -114,8 +122,10 @@ export const projects: Project[] = [
     name: 'BricX ERP',
     category: 'ERP',
     liveLink: '',
-    description: 'Functional, integration, regression across User Mgmt, HR, Inventory, Reporting; journal vouchers, Daybooks, Payable/Receivable. Tools: Manual, Excel, Jira',
-    summary: 'Business operations validation across ERP modules, finance, and reporting.',
+    description:
+      'An ERP platform spanning HR, inventory, finance, and reporting modules used to support business operations and internal controls. Quality testing reviewed journal workflows, user permissions, stock transfer accuracy, and reconciliation logic to reduce risk in key business processes.',
+    summary:
+      'ERP validation across HR, finance, inventory, and reporting with a focus on operational integrity and process reliability.',
     tags: ['ERP', 'Finance', 'Inventory'],
     modules: ['User Mgmt', 'HR', 'Inventory', 'Reporting'],
     tools: ['Manual', 'Excel', 'Jira'],
@@ -136,8 +146,10 @@ export const projects: Project[] = [
     name: 'Phat Online Food Order',
     category: 'E-commerce',
     liveLink: '',
-    description: 'Guest + customer flows, order placement, cash/card payment, tracking, order history. Tools: Manual + Automation, Figma, Excel, Jira',
-    summary: 'End-user ordering and payment validation for online food ordering.',
+    description:
+      'An online food ordering experience covering guest checkout, registered-user journeys, payment completion, and order history tracking. The testing scope included purchase flow validation, state transitions, payment confidence, and consistent record updates to protect the customer experience.',
+    summary:
+      'Customer-focused ordering platform validating checkout, payment, tracking, and order history across the online food purchase journey.',
     tags: ['Food', 'Checkout', 'Tracking'],
     modules: ['Guest flow', 'Customer flow', 'Payment', 'Order history'],
     tools: ['Manual', 'Automation', 'Figma', 'Excel'],
@@ -158,8 +170,10 @@ export const projects: Project[] = [
     name: 'E-commerce (Nepal to USA)',
     category: 'E-commerce',
     liveLink: '',
-    description: 'Cross-border checkout, cash/card, registration, local + international shipment tracking. Tools: Manual + Automation, Jira, Excel',
-    summary: 'Cross-border purchase flow and shipment tracking checks.',
+    description:
+      'A cross-border commerce platform spanning registration, checkout, shipping, order tracking, and fulfillment updates for customers across Nepal and the USA. The QA process emphasized address validation, payment path behavior, shipping milestones, and checkout confidence during multi-country transactions.',
+    summary:
+      'Cross-border commerce testing for registration, checkout, shipping, and tracking across international purchase flows.',
     tags: ['Checkout', 'Shipping', 'Registration'],
     modules: ['Registration', 'Checkout', 'Shipping', 'Tracking'],
     tools: ['Manual', 'Automation', 'Jira', 'Excel'],
@@ -180,8 +194,10 @@ export const projects: Project[] = [
     name: 'Jilla Bachat',
     category: 'Web apps',
     liveLink: '',
-    description: 'Bank transaction recording, main branches and sub-accounts, financial reports, role-based access. Tools: Manual, Excel, Jira',
-    summary: 'Financial controls and role-based validation for a regional banking workflow.',
+    description:
+      'A regional financial and branch-management application focused on records, sub-account settlements, and report integrity. QA coverage included ledger validation, role-based access, and financial totals to help protect trust in accounting and reporting flows.',
+    summary:
+      'Financial and branch workflow application validating access control, account records, and report integrity in a regional business context.',
     tags: ['Banking', 'Access', 'Reports'],
     modules: ['Branch records', 'Sub-accounts', 'Reporting', 'Access'],
     tools: ['Manual', 'Excel', 'Jira'],
@@ -202,8 +218,10 @@ export const projects: Project[] = [
     name: 'QR Digital Menu',
     category: 'Restaurant/POS',
     liveLink: '',
-    description: 'QR access for hotels/restaurants, display, links, mobile compatibility. Tools: Manual, Excel',
-    summary: 'Mobile-first menu access and link display validation for hospitality clients.',
+    description:
+      'A mobile-friendly digital menu experience designed for quick browsing, category navigation, and menu access through QR-based entry points. Testing covered responsiveness, link accuracy, layout behavior, and fallback usability across smaller screens and hospitality use cases.',
+    summary:
+      'Mobile-first QR menu validation for hospitality access, category navigation, and responsive usability across quick-service browsing patterns.',
     tags: ['QR', 'Mobile', 'Hospitality'],
     modules: ['Menu display', 'Link validation', 'Responsive layout', 'Navigation'],
     tools: ['Manual', 'Excel'],

@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
+import { ProjectCover } from '../components/ProjectCover';
 import { projects } from '../data/projects';
 
 const filterOptions = ['All', 'Web apps', 'ERP', 'E-commerce', 'Restaurant/POS'] as const;
 
 function Work() {
   return (
-    <main className="container page-shell">
+    <main id="main" className="container page-shell">
       <div className="section-heading split-heading">
         <div>
           <p className="eyebrow">Work archive</p>
@@ -24,16 +25,19 @@ function Work() {
       <div className="project-grid work-grid">
         {projects.map((project) => (
           <Link to={`/work/${project.slug}`} key={project.slug} className="project-card project-card--archive">
-            <div className="card-meta">
-              <span>[{project.category}]</span>
-              <span>{project.slug}</span>
-            </div>
-            <h3>{project.name}</h3>
-            <p>{project.description}</p>
-            <div className="tag-row">
-              {project.tags.map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
+            <ProjectCover slug={project.slug} className="project-cover project-cover--archive" />
+            <div className="project-overlay">
+              <div className="card-meta">
+                <span>[{project.category}]</span>
+                <span>{project.slug}</span>
+              </div>
+              <h3>{project.name}</h3>
+              <p>{project.summary}</p>
+              <div className="tag-row">
+                {project.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
             </div>
           </Link>
         ))}
